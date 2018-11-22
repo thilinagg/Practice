@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PracticeDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="accType" Type="varchar" MaxLength="50" />
+          <Property Name="rate" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="CreateAccount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="accountNo" Type="varchar" MaxLength="8" />
+          <Property Name="holderName" Type="varchar" MaxLength="50" />
+          <Property Name="nic" Type="varchar" MaxLength="12" />
+          <Property Name="createDate" Type="datetime" />
+          <Property Name="typeId" Type="int" />
+        </EntityType>
+        <EntityType Name="Deposite">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deposite" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="accId" Type="int" />
+        </EntityType>
+        <EntityType Name="Interest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="interest" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="accId" Type="int" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="256" />
+          <Property Name="hashedPassword" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Widtrow">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="widthrow" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="accId" Type="int" />
+        </EntityType>
+        <Association Name="FK_CreateAccount_AccountType">
+          <End Role="AccountType" Type="Self.AccountType" Multiplicity="0..1" />
+          <End Role="CreateAccount" Type="Self.CreateAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CreateAccount">
+              <PropertyRef Name="typeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deposite_CreateAccount">
+          <End Role="CreateAccount" Type="Self.CreateAccount" Multiplicity="0..1" />
+          <End Role="Deposite" Type="Self.Deposite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreateAccount">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Deposite">
+              <PropertyRef Name="accId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interest_CreateAccount">
+          <End Role="CreateAccount" Type="Self.CreateAccount" Multiplicity="0..1" />
+          <End Role="Interest" Type="Self.Interest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreateAccount">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Interest">
+              <PropertyRef Name="accId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Widtrow_CreateAccount">
+          <End Role="CreateAccount" Type="Self.CreateAccount" Multiplicity="0..1" />
+          <End Role="Widtrow" Type="Self.Widtrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreateAccount">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Widtrow">
+              <PropertyRef Name="accId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PracticeDBModelStoreContainer">
+          <EntitySet Name="AccountType" EntityType="Self.AccountType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CreateAccount" EntityType="Self.CreateAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deposite" EntityType="Self.Deposite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Interest" EntityType="Self.Interest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Widtrow" EntityType="Self.Widtrow" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CreateAccount_AccountType" Association="Self.FK_CreateAccount_AccountType">
+            <End Role="AccountType" EntitySet="AccountType" />
+            <End Role="CreateAccount" EntitySet="CreateAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deposite_CreateAccount" Association="Self.FK_Deposite_CreateAccount">
+            <End Role="CreateAccount" EntitySet="CreateAccount" />
+            <End Role="Deposite" EntitySet="Deposite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interest_CreateAccount" Association="Self.FK_Interest_CreateAccount">
+            <End Role="CreateAccount" EntitySet="CreateAccount" />
+            <End Role="Interest" EntitySet="Interest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Widtrow_CreateAccount" Association="Self.FK_Widtrow_CreateAccount">
+            <End Role="CreateAccount" EntitySet="CreateAccount" />
+            <End Role="Widtrow" EntitySet="Widtrow" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PracticeDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PracticeDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountTypes" EntityType="PracticeDBModel.AccountType" />
+          <EntitySet Name="CreateAccounts" EntityType="PracticeDBModel.CreateAccount" />
+          <EntitySet Name="Deposites" EntityType="PracticeDBModel.Deposite" />
+          <EntitySet Name="Interests" EntityType="PracticeDBModel.Interest" />
+          <EntitySet Name="Users" EntityType="PracticeDBModel.User" />
+          <EntitySet Name="Widtrows" EntityType="PracticeDBModel.Widtrow" />
+          <AssociationSet Name="FK_CreateAccount_AccountType" Association="PracticeDBModel.FK_CreateAccount_AccountType">
+            <End Role="AccountType" EntitySet="AccountTypes" />
+            <End Role="CreateAccount" EntitySet="CreateAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deposite_CreateAccount" Association="PracticeDBModel.FK_Deposite_CreateAccount">
+            <End Role="CreateAccount" EntitySet="CreateAccounts" />
+            <End Role="Deposite" EntitySet="Deposites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interest_CreateAccount" Association="PracticeDBModel.FK_Interest_CreateAccount">
+            <End Role="CreateAccount" EntitySet="CreateAccounts" />
+            <End Role="Interest" EntitySet="Interests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Widtrow_CreateAccount" Association="PracticeDBModel.FK_Widtrow_CreateAccount">
+            <End Role="CreateAccount" EntitySet="CreateAccounts" />
+            <End Role="Widtrow" EntitySet="Widtrows" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AccountType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="accType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rate" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="CreateAccounts" Relationship="PracticeDBModel.FK_CreateAccount_AccountType" FromRole="AccountType" ToRole="CreateAccount" />
+        </EntityType>
+        <EntityType Name="CreateAccount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="accountNo" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="holderName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nic" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="createDate" Type="DateTime" Precision="3" />
+          <Property Name="typeId" Type="Int32" />
+          <NavigationProperty Name="AccountType" Relationship="PracticeDBModel.FK_CreateAccount_AccountType" FromRole="CreateAccount" ToRole="AccountType" />
+          <NavigationProperty Name="Deposites" Relationship="PracticeDBModel.FK_Deposite_CreateAccount" FromRole="CreateAccount" ToRole="Deposite" />
+          <NavigationProperty Name="Interests" Relationship="PracticeDBModel.FK_Interest_CreateAccount" FromRole="CreateAccount" ToRole="Interest" />
+          <NavigationProperty Name="Widtrows" Relationship="PracticeDBModel.FK_Widtrow_CreateAccount" FromRole="CreateAccount" ToRole="Widtrow" />
+        </EntityType>
+        <EntityType Name="Deposite">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deposite1" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="accId" Type="Int32" />
+          <NavigationProperty Name="CreateAccount" Relationship="PracticeDBModel.FK_Deposite_CreateAccount" FromRole="Deposite" ToRole="CreateAccount" />
+        </EntityType>
+        <EntityType Name="Interest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="interest1" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="accId" Type="Int32" />
+          <NavigationProperty Name="CreateAccount" Relationship="PracticeDBModel.FK_Interest_CreateAccount" FromRole="Interest" ToRole="CreateAccount" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="hashedPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Widtrow">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="widthrow" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="accId" Type="Int32" />
+          <NavigationProperty Name="CreateAccount" Relationship="PracticeDBModel.FK_Widtrow_CreateAccount" FromRole="Widtrow" ToRole="CreateAccount" />
+        </EntityType>
+        <Association Name="FK_CreateAccount_AccountType">
+          <End Type="PracticeDBModel.AccountType" Role="AccountType" Multiplicity="0..1" />
+          <End Type="PracticeDBModel.CreateAccount" Role="CreateAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CreateAccount">
+              <PropertyRef Name="typeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deposite_CreateAccount">
+          <End Type="PracticeDBModel.CreateAccount" Role="CreateAccount" Multiplicity="0..1" />
+          <End Type="PracticeDBModel.Deposite" Role="Deposite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreateAccount">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Deposite">
+              <PropertyRef Name="accId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interest_CreateAccount">
+          <End Type="PracticeDBModel.CreateAccount" Role="CreateAccount" Multiplicity="0..1" />
+          <End Type="PracticeDBModel.Interest" Role="Interest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreateAccount">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Interest">
+              <PropertyRef Name="accId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Widtrow_CreateAccount">
+          <End Type="PracticeDBModel.CreateAccount" Role="CreateAccount" Multiplicity="0..1" />
+          <End Type="PracticeDBModel.Widtrow" Role="Widtrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreateAccount">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Widtrow">
+              <PropertyRef Name="accId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PracticeDBModelStoreContainer" CdmEntityContainer="PracticeDBEntities">
+          <EntitySetMapping Name="AccountTypes">
+            <EntityTypeMapping TypeName="PracticeDBModel.AccountType">
+              <MappingFragment StoreEntitySet="AccountType">
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="accType" ColumnName="accType" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreateAccounts">
+            <EntityTypeMapping TypeName="PracticeDBModel.CreateAccount">
+              <MappingFragment StoreEntitySet="CreateAccount">
+                <ScalarProperty Name="typeId" ColumnName="typeId" />
+                <ScalarProperty Name="createDate" ColumnName="createDate" />
+                <ScalarProperty Name="nic" ColumnName="nic" />
+                <ScalarProperty Name="holderName" ColumnName="holderName" />
+                <ScalarProperty Name="accountNo" ColumnName="accountNo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deposites">
+            <EntityTypeMapping TypeName="PracticeDBModel.Deposite">
+              <MappingFragment StoreEntitySet="Deposite">
+                <ScalarProperty Name="accId" ColumnName="accId" />
+                <ScalarProperty Name="deposite1" ColumnName="deposite" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Interests">
+            <EntityTypeMapping TypeName="PracticeDBModel.Interest">
+              <MappingFragment StoreEntitySet="Interest">
+                <ScalarProperty Name="accId" ColumnName="accId" />
+                <ScalarProperty Name="interest1" ColumnName="interest" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PracticeDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="hashedPassword" ColumnName="hashedPassword" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Widtrows">
+            <EntityTypeMapping TypeName="PracticeDBModel.Widtrow">
+              <MappingFragment StoreEntitySet="Widtrow">
+                <ScalarProperty Name="accId" ColumnName="accId" />
+                <ScalarProperty Name="widthrow" ColumnName="widthrow" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

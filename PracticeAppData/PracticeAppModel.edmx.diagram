@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8a59ab8433dd49c68fa480513d7f346b" Name="Diagram1">
+        <EntityTypeShape EntityType="PracticeDBModel.AccountType" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="PracticeDBModel.CreateAccount" Width="1.5" PointX="3" PointY="3.125" />
+        <EntityTypeShape EntityType="PracticeDBModel.Deposite" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="PracticeDBModel.Interest" Width="1.5" PointX="5.25" PointY="6.25" />
+        <EntityTypeShape EntityType="PracticeDBModel.User" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PracticeDBModel.Widtrow" Width="1.5" PointX="5.25" PointY="3.75" />
+        <AssociationConnector Association="PracticeDBModel.FK_CreateAccount_AccountType" />
+        <AssociationConnector Association="PracticeDBModel.FK_Deposite_CreateAccount" />
+        <AssociationConnector Association="PracticeDBModel.FK_Interest_CreateAccount" />
+        <AssociationConnector Association="PracticeDBModel.FK_Widtrow_CreateAccount" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
